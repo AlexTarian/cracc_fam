@@ -2,6 +2,7 @@ import 'package:cracc_fam/constants.dart';
 import 'package:cracc_fam/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
+import 'package:cracc_fam/main.dart';
 //import 'package:cracc_fam/components/icon_box_button.dart';
 //import 'package:cracc_fam/views/player_select_screen.dart';
 //import 'package:cracc_fam/views/settings_screen.dart';
@@ -71,27 +72,37 @@ class _PlayerSelectScreenState extends State<PlayerSelectScreen> {
                           textColor: Theme.of(context).primaryColor,
                           onTap: () {
                             Alert(
+                              style: AlertStyle(
+                                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                titleStyle: TextStyle(color: Theme.of(context).primaryColor),
+                                descStyle: TextStyle(
+                                  color: MyApp.themeNotifier.value == ThemeMode.light
+                                    ? Colors.white
+                                    : Colors.black,
+                                ),
+                              ),
                               context: context,
                               title: PlayerList().playerList.elementAt(index).name,
                               desc: PlayerList().playerList.elementAt(index).text,
+                              image: PlayerList().playerList.elementAt(index).image,
                               buttons: [
                                 DialogButton(
-                                  color: italyRed,
-                                  child: const Text('Cancel',
-                                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('Cancel',
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
                                 ),
                                 DialogButton(
-                                  color: italyRed,
-                                  child: const Text('Choose',
-                                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                                  color: Theme.of(context).primaryColor,
+                                  child: Text('Choose',
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                   onPressed: () {
                                     setState(() {
-
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                                     });
                                     Navigator.pop(context);
                                   },
