@@ -55,7 +55,7 @@ final ThemeData lightTheme = ThemeData(
     displaySmall:  TextStyle(
       fontFamily: 'Italiana',
       color: Colors.black,
-      fontSize: 15,
+      fontSize: 20,
       fontWeight: FontWeight.w700,
     ),
   ),
@@ -106,7 +106,7 @@ final ThemeData darkTheme = ThemeData(
     displaySmall:  TextStyle(
       fontFamily: 'Italiana',
       color: Colors.white,
-      fontSize: 15,
+      fontSize: 20,
       fontWeight: FontWeight.w700,
     ),
   ),

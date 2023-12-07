@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
 import 'package:cracc_fam/components/icon_box_button.dart';
-import 'package:cracc_fam/views/host_join_screen.dart';
+import 'package:cracc_fam/views/player_select_screen.dart';
 import 'package:cracc_fam/views/settings_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class LobbyScreen extends StatefulWidget {
+  const LobbyScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<LobbyScreen> createState() => _LobbyScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _LobbyScreenState extends State<LobbyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,31 +43,30 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 20.0),
-                Text('CRACCHI-YOLO',
+                Text('Game Lobby',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
                 const SizedBox(height: 50.0),
                 GestureDetector(
                   child: const IconBoxButton(
-                    icon: Icons.gamepad_rounded,
-                    text: 'New Game',
+                    icon: Icons.center_focus_strong,
+                    text: 'Host Game',
                   ),
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HostJoinScreen()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PlayerSelectScreen()));
                   },
                 ),
                 const SizedBox(height: 30.0),
                 GestureDetector(
                   child: const IconBoxButton(
-                    icon: Icons.settings,
-                    text: 'Settings',
+                    icon: Icons.arrow_circle_right_outlined,
+                    text: 'Join Game',
                   ),
                   onTap: () {
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
                   },
                 ),
                 const SizedBox(height: 30.0),
-
               ],
             ),
           ),
