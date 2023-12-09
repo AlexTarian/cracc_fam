@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: const Size.fromHeight(85.0),
         child: Builder(builder: (context) {
           return customAppBar(
+            isBackDisabled: true,
             onPressedL: () {},
             iconR: Icons.help,
             onPressedR: () {},

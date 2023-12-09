@@ -1,10 +1,8 @@
 import 'package:cracc_fam/views/home_screen.dart';
-import 'package:cracc_fam/views/lobby_screen.dart';
+import 'package:cracc_fam/views/pin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
 import 'package:cracc_fam/components/icon_box_button.dart';
-import 'package:cracc_fam/main.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HostJoinScreen extends StatefulWidget {
   const HostJoinScreen({Key? key}) : super(key: key);
@@ -14,9 +12,6 @@ class HostJoinScreen extends StatefulWidget {
 }
 
 class _HostJoinScreenState extends State<HostJoinScreen> {
-  TextEditingController pin = TextEditingController(text: '');
-  int chars = 0;
-  bool error = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,70 +50,7 @@ class _HostJoinScreenState extends State<HostJoinScreen> {
                     text: 'Host A Game',
                   ),
                   onTap: () {
-                    Alert(
-                      style: AlertStyle(
-                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                        titleStyle: TextStyle(color: Theme.of(context).primaryColor),
-                        descStyle: TextStyle(
-                          color: MyApp.themeNotifier.value == ThemeMode.light
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                      context: context,
-                      title: 'Host a Game',
-                      desc: 'Enter a 4-digit pin',
-                      content: SizedBox(
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: pin,
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              maxLength: 4,
-                              onChanged: (value) {
-                                setState(() {
-                                  chars = value.length;
-                                });
-                              },
-                            ),
-                            Visibility(
-                              visible: error,
-                              child: Text('Pin Must Contain 4 Digits.',
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      buttons: [
-                        DialogButton(
-                          color: Theme.of(context).primaryColor,
-                          child: Text('Cancel',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        DialogButton(
-                          color: Theme.of(context).primaryColor,
-                          child: Text('Create',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              if (chars != 4) {
-                                error = true;
-                              }
-                            });
-                            if (chars == 4) {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LobbyScreen()));
-                            }
-                          },
-                        ),
-                      ],
-                    ).show();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PinScreen(type: 'Host')));
                   },
                 ),
                 const SizedBox(height: 30.0),
@@ -128,70 +60,7 @@ class _HostJoinScreenState extends State<HostJoinScreen> {
                     text: 'Join A Game',
                   ),
                   onTap: () {
-                    Alert(
-                      style: AlertStyle(
-                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                        titleStyle: TextStyle(color: Theme.of(context).primaryColor),
-                        descStyle: TextStyle(
-                          color: MyApp.themeNotifier.value == ThemeMode.light
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                      context: context,
-                      title: 'Join a Game',
-                      desc: 'Enter a 4-digit pin',
-                      content: SizedBox(
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: pin,
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              maxLength: 4,
-                              onChanged: (value) {
-                                setState(() {
-                                  chars = value.length;
-                                });
-                              },
-                            ),
-                            Visibility(
-                              visible: error,
-                                child: Text('Pin Must Contain 4 Digits.',
-                                style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                            )
-                          ],
-                        ),
-                      ),
-                      buttons: [
-                        DialogButton(
-                          color: Theme.of(context).primaryColor,
-                          child: Text('Cancel',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        DialogButton(
-                          color: Theme.of(context).primaryColor,
-                          child: Text('Join',
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              if (chars != 4) {
-                                error = true;
-                              }
-                            });
-                            if (chars == 4) {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LobbyScreen()));
-                            }
-                          },
-                        ),
-                      ],
-                    ).show();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PinScreen(type: 'Join')));
                   },
                 ),
                 const SizedBox(height: 30.0),

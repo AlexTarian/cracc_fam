@@ -1,8 +1,6 @@
+import 'package:cracc_fam/views/host_join_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
-import 'package:cracc_fam/components/icon_box_button.dart';
-import 'package:cracc_fam/views/player_select_screen.dart';
-import 'package:cracc_fam/views/settings_screen.dart';
 
 class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
@@ -19,7 +17,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
         preferredSize: const Size.fromHeight(85.0),
         child: Builder(builder: (context) {
           return customAppBar(
-            onPressedL: () {},
+            onPressedL: () {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HostJoinScreen()));},
             iconR: Icons.help,
             onPressedR: () {},
           );
@@ -41,32 +39,57 @@ class _LobbyScreenState extends State<LobbyScreen> {
           child: SafeArea(
             minimum: const EdgeInsets.all(20.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                const SizedBox(height: 20.0),
                 Text('Game Lobby',
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
-                const SizedBox(height: 50.0),
-                GestureDetector(
-                  child: const IconBoxButton(
-                    icon: Icons.center_focus_strong,
-                    text: 'Host Game',
-                  ),
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PlayerSelectScreen()));
-                  },
+                Text('<players>',
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                const SizedBox(height: 30.0),
-                GestureDetector(
-                  child: const IconBoxButton(
-                    icon: Icons.arrow_circle_right_outlined,
-                    text: 'Join Game',
+                Center(
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: const BorderRadius.all(Radius.circular(15.0),
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width * .40,
+                          child: Center(
+                            child: Text('Cancel',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * .10),
+                      GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: const BorderRadius.all(Radius.circular(15.0),
+                            ),
+                          ),
+                          width: MediaQuery.of(context).size.width * .40,
+                          child: Center(
+                            child: Text('Start Game',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+
+                        },
+                      ),
+                    ],
                   ),
-                  onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SettingsScreen()));
-                  },
                 ),
-                const SizedBox(height: 30.0),
               ],
             ),
           ),
