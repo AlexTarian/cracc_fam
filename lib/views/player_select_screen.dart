@@ -1,4 +1,5 @@
 import 'package:cracc_fam/views/home_screen.dart';
+import 'package:cracc_fam/views/lobby_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
 import 'package:cracc_fam/main.dart';
@@ -6,13 +7,20 @@ import 'package:cracc_fam/components/player_list.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PlayerSelectScreen extends StatefulWidget {
-  const PlayerSelectScreen({Key? key}) : super(key: key);
+  const PlayerSelectScreen({Key? key, required this.type, required this.player, required this.points}) : super(key: key);
+
+  final String type;
+  final String player;
+  final int points;
 
   @override
   State<PlayerSelectScreen> createState() => _PlayerSelectScreenState();
 }
 
 class _PlayerSelectScreenState extends State<PlayerSelectScreen> {
+
+  String character = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,8 +53,9 @@ class _PlayerSelectScreenState extends State<PlayerSelectScreen> {
               children: <Widget>[
                 const SizedBox(height: 20.0),
                 Text(
-                  'Choose Your Character',
-                  style: Theme.of(context).textTheme.titleLarge,
+                    'Welcome ${widget.player}!\nChoose Your Character!',
+                  style: Theme.of(context).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 50.0),
                 Expanded(
@@ -59,11 +68,20 @@ class _PlayerSelectScreenState extends State<PlayerSelectScreen> {
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                           border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Colors.transparent,
+                                Colors.transparent,
+                                PlayerList().playerList.elementAt(index).color,
+                              ],
+                            )
                         ),
                         child: ListTile(
                           minVerticalPadding: 10.0,
                           leading: PlayerList().playerList.elementAt(index).icon,
-                          title: Text(PlayerList().playerList.elementAt(index).name, style: const TextStyle(fontSize: 20.0),),
+                          title: Text(PlayerList().playerList.elementAt(index).name, style: Theme.of(context).textTheme.titleMedium),
                           iconColor: Theme.of(context).primaryColor,
                           textColor: Theme.of(context).primaryColor,
                           onTap: () {
@@ -98,9 +116,10 @@ class _PlayerSelectScreenState extends State<PlayerSelectScreen> {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+                                      character=PlayerList().playerList.elementAt(index).name;
                                     });
                                     Navigator.pop(context);
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LobbyScreen(player: widget.player, type: widget.type, points: widget.points, character: character)));
                                   },
                                 ),
                               ],

@@ -1,9 +1,15 @@
+import 'package:cracc_fam/views/game_screen.dart';
 import 'package:cracc_fam/views/host_join_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cracc_fam/components/custom_app_bar.dart';
 
 class LobbyScreen extends StatefulWidget {
-  const LobbyScreen({Key? key}) : super(key: key);
+  const LobbyScreen({Key? key, required this.type, required this.player, required this.points, required this.character}) : super(key: key);
+
+  final String type;
+  final String player;
+  final int points;
+  final String character;
 
   @override
   State<LobbyScreen> createState() => _LobbyScreenState();
@@ -65,7 +71,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HostJoinScreen()));
                         },
                       ),
                       SizedBox(width: MediaQuery.of(context).size.width * .10),
@@ -84,7 +90,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           ),
                         ),
                         onTap: () {
-
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => GameScreen(player: widget.player, type: widget.type, points: widget.points, character: widget.character)));
                         },
                       ),
                     ],

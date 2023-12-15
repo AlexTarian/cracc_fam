@@ -1,3 +1,4 @@
+import 'package:cracc_fam/components/custom_text_field.dart';
 import 'package:cracc_fam/views/home_screen.dart';
 import 'package:cracc_fam/views/pin_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class HostJoinScreen extends StatefulWidget {
 }
 
 class _HostJoinScreenState extends State<HostJoinScreen> {
+  TextEditingController playerName = TextEditingController();
+  bool ready = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,24 +47,50 @@ class _HostJoinScreenState extends State<HostJoinScreen> {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 20.0),
-                GestureDetector(
-                  child: const IconBoxButton(
-                    icon: Icons.center_focus_strong,
-                    text: 'Host A Game',
-                  ),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PinScreen(type: 'Host')));
+                Text('New Game',
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30.0),
+                CustomTextField(
+                  controller: playerName,
+                  label: 'What is Your Name?',
+                  maxLength: 10,
+                  onChanged: (value) {
+                    setState(() {
+                      if(value!.isNotEmpty) {
+                        ready=true;
+                      } else {
+                        ready=false;
+                      }
+                    });
                   },
                 ),
                 const SizedBox(height: 30.0),
-                GestureDetector(
-                  child: const IconBoxButton(
-                    icon: Icons.arrow_circle_right_outlined,
-                    text: 'Join A Game',
+                Visibility(
+                  visible: ready,
+                  child: GestureDetector(
+                    child: const IconBoxButton(
+                      icon: Icons.center_focus_strong,
+                      text: 'Host A Game',
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PinScreen(type: 'Host', player: playerName.text,)));
+                    },
                   ),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const PinScreen(type: 'Join')));
-                  },
+                ),
+                const SizedBox(height: 30.0),
+                Visibility(
+                  visible: ready,
+                  child: GestureDetector(
+                    child: const IconBoxButton(
+                      icon: Icons.arrow_circle_right_outlined,
+                      text: 'Join A Game',
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PinScreen(type: 'Join', player: playerName.text,)));
+                    },
+                  ),
                 ),
                 const SizedBox(height: 30.0),
 
